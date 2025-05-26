@@ -1,0 +1,4 @@
+FROM postgres:13
+ENV POSTGRES_DB=myappdb
+ENV POSTGRES_USER=sainadh
+ENV POSTGRES_PASSWORD=prudent123

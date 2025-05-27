@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import psycopg2
 
 app = Flask(__name__)
@@ -23,6 +23,8 @@ def get_users():
     users = cur.fetchall()
     cur.close()
     conn.close()
+    # convert tuples to list of dicts
+    users = [{'id': row[0], 'name': row[1]} for row in rows]
     return jsonify(users)
 
 @app.route('/api/users', methods=['POST'])

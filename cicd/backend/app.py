@@ -13,13 +13,27 @@ def get_db_connection():
 
 @app.route('/')
 def hello():
+    return 'Flask API is running.'
+
+@app.route('/api/users', methods=['GET'])
+def get_users():
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute('SELECT version()')
-    db_version = cur.fetchone()
+    cur.execute('SELECT * FROM users;')
+    users = cur.fetchall()
     cur.close()
     conn.close()
-    return f'Connected to DB: {db_version}'
+    return jsonify(users)
+
+@app.route('/api/users', methods=['POST'])
+def create_user():
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute("INSERT INTO users (name) VALUES (%s)", ('sainadh',))
+    conn.commit()
+    cur.close()
+    conn.close()
+    return jsonify({'message': 'User added successfully'}), 201
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

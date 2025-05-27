@@ -13,7 +13,13 @@ def get_db_connection():
 
 @app.route('/')
 def hello():
-    return 'Flask API is running.'
+    conn = get_db_connection()
+    cur = conn.cursor()
+    cur.execute('SELECT version()')
+    db_version = cur.fetchone()
+    cur.close()
+    conn.close()
+    return f'Connected to DB: {db_version}'
 
 @app.route('/api/users', methods=['GET'])
 def get_users():

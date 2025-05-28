@@ -16,7 +16,8 @@
             e.preventDefault();
             const name = document.getElementById('nameInput').value;
 
-            const response = await fetch('http://localhost:5000/submit', {
+            const response = await fetch('http://20.121.42.108:5000/submit', {
+
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name })

@@ -30,7 +30,9 @@ def get_users():
     cur.close()
     conn.close()
     # convert tuples to list of dicts
+    rows = cur.fetchall()
     users = [{'id': row[0], 'name': row[1]} for row in rows]
+
     return jsonify(users)
 
 @app.route('/api/users', methods=['POST'])
